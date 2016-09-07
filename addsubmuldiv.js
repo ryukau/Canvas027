@@ -28,7 +28,12 @@ function onDoubleClickCanvas(event) {
 }
 
 function onWheelkCanvas(event) {
-
+  var dz = new Z(0.04, 0)
+  if (event.deltaY > 0) {
+    dz.x = -dz.x
+  }
+  dz.x += z1.abs()
+  z1 = dz.rotate(z1.arg())
 }
 
 var zero = new Vec2(0, 0)
@@ -70,7 +75,7 @@ function move() {
 function draw() {
   var context = canvas.context
   var center = canvas.center
-  var scaleRatio = 3
+  var scaleRatio = 3.2
 
   canvas.clearWhite()
   drawAxes()
