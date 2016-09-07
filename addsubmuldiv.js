@@ -1,6 +1,25 @@
 const TWO_PI = 2 * Math.PI
+const COLOR_Z1 = "#ffdddd"
+const COLOR_Z2 = "#ddddff"
+const COLOR_ZADD = "#ee4444"
+const COLOR_ZSUB = "#ffcc66"
+const COLOR_ZMUL = "#44aaee"
+const COLOR_ZDIV = "#44ee44"
+
+var isPlaying = true
 
 var canvas = new Canvas(512, 512)
+canvas.canvas.addEventListener("click", onClickCanvas, false)
+canvas.canvas.addEventListener("dblclick", onDoubleClickCanvas, false)
+
+function onClickCanvas(event) {
+  isPlaying = !isPlaying
+}
+
+function onDoubleClickCanvas(event) {
+  z1theta = TWO_PI
+}
+
 var zero = new Vec2(0, 0)
 var axes = {
   x1: new Vec2(0, canvas.center.y),
@@ -23,8 +42,10 @@ var dtheta = 0.01
 animate()
 
 function animate() {
-  move()
-  draw()
+  if (isPlaying) {
+    move()
+    draw()
+  }
   requestAnimationFrame(animate)
 }
 
@@ -57,14 +78,16 @@ function draw() {
   context.scale(center.x / scaleRatio, center.y / scaleRatio)
 
   drawUnitCircle()
-  drawVector(z1, "#ffdddd")
-  drawVector(z2, "#ddddff")
-  drawVector(zAdd, "#ee4444")
-  drawVector(zSub, "#ffcc66")
-  drawVector(zMul, "#44aaee")
-  drawVector(zDiv, "#44ee44")
+  drawVector(z1, COLOR_Z1)
+  drawVector(z2, COLOR_Z2)
+  drawVector(zAdd, COLOR_ZADD)
+  drawVector(zSub, COLOR_ZSUB)
+  drawVector(zMul, COLOR_ZMUL)
+  drawVector(zDiv, COLOR_ZDIV)
 
   context.restore()
+
+  drawTexts()
 }
 
 function drawAxes() {
@@ -88,6 +111,24 @@ function drawVector(z, color) {
   canvas.context.lineWidth = 0.02
   canvas.drawLine(zero, z)
   canvas.drawPoint(z, 0.05)
+}
+
+function drawTexts() {
+  var padding = 2
+  var height = 12
+  canvas.context.font = "12px monospace"
+  canvas.context.fillStyle = COLOR_Z1
+  canvas.context.fillText(`z1 = (${z1.x}, ${z1.y})`, padding, height * 1)
+  canvas.context.fillStyle = COLOR_Z2
+  canvas.context.fillText(`z2 = (${z2.x}, ${z2.y})`, padding, height * 2)
+  canvas.context.fillStyle = COLOR_ZADD
+  canvas.context.fillText(`z1 + z2 = (${zAdd.x}, ${zAdd.y})`, padding, height * 3)
+  canvas.context.fillStyle = COLOR_ZSUB
+  canvas.context.fillText(`z1 - z2 = (${zSub.x}, ${zSub.y})`, padding, height * 4)
+  canvas.context.fillStyle = COLOR_ZMUL
+  canvas.context.fillText(`z1 * z2 = (${zMul.x}, ${zMul.y})`, padding, height * 5)
+  canvas.context.fillStyle = COLOR_ZDIV
+  canvas.context.fillText(`z1 / z2 = (${zDiv.x}, ${zDiv.y})`, padding, height * 6)
 }
 
 function randomZ() {
