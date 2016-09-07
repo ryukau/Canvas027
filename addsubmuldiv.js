@@ -11,15 +11,24 @@ var isPlaying = true
 var canvas = new Canvas(512, 512)
 canvas.canvas.addEventListener("click", onClickCanvas, false)
 canvas.canvas.addEventListener("dblclick", onDoubleClickCanvas, false)
+canvas.canvas.addEventListener("wheel", onWheelkCanvas, false)
 
 function onClickCanvas(event) {
-  isPlaying = !isPlaying
+  if (event.button === 1) {
+    dtheta = -dtheta
+  }
+  else {
+    isPlaying = !isPlaying
+  }
 }
 
 function onDoubleClickCanvas(event) {
-  z1theta = 0
   z1.set(z1re, 0)
   z2 = randomZ()
+}
+
+function onWheelkCanvas(event) {
+
 }
 
 var zero = new Vec2(0, 0)
@@ -38,7 +47,6 @@ var zSub = Z.sub(z1, z2)
 var zMul = Z.mul(z1, z2)
 var zDiv = Z.div(z1, z2)
 
-var z1theta = 0
 var dtheta = 0.01
 
 animate()
@@ -52,7 +60,6 @@ function animate() {
 }
 
 function move() {
-  z1theta += dtheta
   z1.rotate(dtheta)
   zAdd = Z.add(z1, z2)
   zSub = Z.sub(z1, z2)
