@@ -142,6 +142,17 @@ class Z {
     return this
   }
 
+  // 原点を中心に回転。
+  rotate(theta) {
+    var sin = Math.sin(theta)
+    var cos = Math.cos(theta)
+    var x = this.x * cos - this.y * sin
+    var y = this.x * sin + this.y * cos
+    this.x = x
+    this.y = y
+    return this
+  }
+
   // 平方根。
   sqrt() {
     var r = Math.sqrt(this.x * this.x + this.y * this.y)
