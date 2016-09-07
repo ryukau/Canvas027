@@ -60,6 +60,7 @@ class Canvas {
   }
 
   drawText(point, text) {
+    // this.context.font = "12px serif"
     this.context.fillText(text, point.x, point.y)
   }
 
