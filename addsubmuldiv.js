@@ -17,7 +17,9 @@ function onClickCanvas(event) {
 }
 
 function onDoubleClickCanvas(event) {
-  z1theta = TWO_PI
+  z1theta = 0
+  z1.set(z1re, 0)
+  z2 = randomZ()
 }
 
 var zero = new Vec2(0, 0)
@@ -50,15 +52,8 @@ function animate() {
 }
 
 function move() {
-  if (z1theta < TWO_PI) {
-    z1theta += dtheta
-    z1.rotate(dtheta)
-  }
-  else {
-    z1theta = 0
-    z1.set(z1re, 0)
-    z2 = randomZ()
-  }
+  z1theta += dtheta
+  z1.rotate(dtheta)
   zAdd = Z.add(z1, z2)
   zSub = Z.sub(z1, z2)
   zMul = Z.mul(z1, z2)
