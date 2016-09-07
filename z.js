@@ -18,7 +18,7 @@ class Z {
   }
 
   clone() {
-    return new Complex(this.x, this.y)
+    return new Z(this.x, this.y)
   }
 
   toString() {
@@ -52,6 +52,10 @@ class Z {
     return this
   }
 
+  static add(z1, z2) {
+    return new Z(z1.x + z2.x, z1.y + z2.y)
+  }
+
   // 角度を求める。
   arg() {
     return Math.atan2(this.y, this.x)
@@ -69,6 +73,13 @@ class Z {
     this.x = (this.x * z.x + this.y * z.y) * denom
     this.y = (this.y * z.x - this.x * z.y) * denom
     return this
+  }
+
+  static div(z1, z2) {
+    var denom = 1 / (z2.x * z2.x + z2.y * z2.y)
+    var x = (z1.x * z2.x + z1.y * z2.y) * denom
+    var y = (z1.y * z2.x - z1.x * z2.y) * denom
+    return new Z(x, y)
   }
 
   // 指数関数。
@@ -100,6 +111,12 @@ class Z {
     this.x = this.x * z.x - this.y * z.y
     this.y = this.x * z.y + this.y * z.x
     return this
+  }
+
+  static mul(z1, z2) {
+    var x = z1.x * z2.x - z1.y * z2.y
+    var y = z1.x * z2.y + z1.y * z2.x
+    return new Z(x, y)
   }
 
   // 複素数 a に実数 r をかける。
@@ -138,6 +155,10 @@ class Z {
     this.x -= z.x
     this.y -= z.y
     return this
+  }
+
+  static sub(z1, z2) {
+    return new Z(z1.x - z2.x, z1.y - z2.y)
   }
 
   // 三角関数。場合分けしたほうが速そう。
