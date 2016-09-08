@@ -118,3 +118,16 @@ class Canvas {
     this.context.putImageData(this.imageData, 0, 0)
   }
 }
+
+class Timer {
+  constructor() {
+    this.now = Date.now() * 0.001
+    this.delta = 0
+  }
+
+  tick() {
+    var now = Date.now() * 0.001
+    this.delta = now - this.now
+    this.now = now
+  }
+}
