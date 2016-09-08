@@ -11,6 +11,7 @@ const COLOR_ZTANH = "#44eeee"
 var isPlaying = true
 var scaleRatio = 5
 
+var timer = new Timer()
 var canvas = new Canvas(window.innerWidth, window.innerHeight)
 canvas.canvas.addEventListener("click", onClickCanvas, false)
 canvas.canvas.addEventListener("wheel", onWheelkCanvas, false)
@@ -21,6 +22,7 @@ function onClickCanvas(event) {
   }
   else {
     isPlaying = !isPlaying
+    timer.pause()
   }
 }
 
@@ -64,12 +66,13 @@ function animate() {
   if (isPlaying) {
     move()
     draw()
+    timer.tick()
   }
   requestAnimationFrame(animate)
 }
 
 function move() {
-  z1re = Math.sin(Date.now() * 0.0001) * 4
+  z1re = Math.sin(timer.lap * 0.1) * 4
   z1.set(z1re, 0)
   z.length = 0
   zSin.length = 0

@@ -123,11 +123,25 @@ class Timer {
   constructor() {
     this.now = Date.now() * 0.001
     this.delta = 0
+    this.zero = this.now
+    this.lap = 0
+    this.isPause = true
   }
 
   tick() {
     var now = Date.now() * 0.001
-    this.delta = now - this.now
+    if (this.isPause) {
+      this.isPause = false
+      this.delta = 0
+    }
+    else {
+      this.delta = now - this.now
+      this.lap += this.delta
+    }
     this.now = now
+  }
+
+  pause() {
+    this.isPause = true
   }
 }
