@@ -100,9 +100,9 @@ class Z {
 
   // 自然対数。
   log() {
-    var r = Math.sqrt(this.x * this.x + this.y + this.y)
-    this.x = Math.log(r)
+    var r = Math.sqrt(this.x * this.x + this.y * this.y)
     this.y = Math.atan2(this.y, this.x)
+    this.x = Math.log(r)
     return this
   }
 
@@ -126,6 +126,12 @@ class Z {
     return this
   }
 
+  static mulr(z, re) {
+    var x = z.x * re
+    var y = z.y * re
+    return new Z(x, y)
+  }
+
   // 負の値。
   neg() {
     this.x = -this.x
@@ -138,8 +144,16 @@ class Z {
     this.log()
     this.x = w.x * this.x - w.y * this.y
     this.y = w.x * this.y + w.y * this.x
-    this.exp()
-    return this
+    return this.exp()
+  }
+
+  powr(re) {
+    this.log()
+    this.x = re * this.x
+    this.y = re * this.y
+    // ここで{x: -1.8694233116608716, y: -3.141592653589793}
+    // となっていると誤差が出る。
+    return this.exp()
   }
 
   // 原点を中心に回転。
